@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    margin: 1rem;
+    min-width: 490px;
+}
+
+.container-main {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.img-size-200 {
+    width: 200px;
+}
+
+.img-margin-right {
+    margin-right: 1rem;
+}
+
+.text-size {
+    font-size: 2rem;
+}
+
+.btn-position {
+    margin-top: 1rem;
+}
+
+#cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.card-text {
+    height: 50px;
+    overflow: hidden;
+}
+
+.card-text.expanded {
+    height: max-content;
+    overflow: visible;
+}
