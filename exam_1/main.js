@@ -1,13 +1,14 @@
+import { apiService } from './apiService.js';
+
 document.addEventListener('DOMContentLoaded', function () {
     const btnSearch = document.querySelector('#btnSearch');
     const containerCoctails = document.querySelector('#cards');
     const template = document.querySelector('#templateCoctail');
 
-    btnSearch.addEventListener('click', async () => {       
+    btnSearch.addEventListener('click', async () => {
         // Получаем данные из поля
         const strInput = document.querySelector('#strInput');
-        const nameCocktail = document.querySelector('#nameCocktail');
-        
+
         // Обрабатываем поля
         const searchCocktail = strInput.value.trim();
 
@@ -21,11 +22,12 @@ document.addEventListener('DOMContentLoaded', function () {
         containerCoctails.innerHTML = '';
 
         // Загружаем данные из сервера
-        const listCoctail = await getData(searchCocktail);
+        const listCoctail = await apiService.getData(searchCocktail);
 
-        // Вывод списка коктейлей согласно Template
-        
-        // console.log(listCoctail.drinks[0]);
+        if (!listCoctail.drinks || listCoctail.drinks.length === 0) {
+            alert('Коктейлей не найдено!');
+            return;
+        }
 
         // Обработаем весь массив в цикле
         for (let i = 0; i < listCoctail.drinks.length; i++) {
@@ -61,31 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }
 
-       
-
-
-        
-    })    
+    })
 
 });
-
-// Функция получения данных из сервера
-async function getData(searchCocktail) {
-    try {
-        // 1. Ждём ответ от сервера (await)
-        const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchCocktail}`);
-
-        // 2. Если ответ "плохой" (не 200-299) → бросаем ошибку
-        if (!response.ok) throw new Error("Ошибка " + response.status);
-
-        // 3. Если всё ок → парсим JSON (тоже с await)
-        const data = await response.json();
-
-        // 4. Работаем с данными
-        return data;
-    } catch (err) {
-        // Ловим ЛЮБЫЕ ошибки: сетевые, 404/500, проблемы с JSON
-        console.error("Ошибка:", err);
-    }
-}
 
