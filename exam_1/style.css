@@ -37,11 +37,14 @@
 }
 
 .card-text {
-    height: 50px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .card-text.expanded {
     height: max-content;
     overflow: visible;
+    text-overflow: clip;
+    white-space: wrap;
 }
